@@ -7,8 +7,10 @@ esphome:
     # ...
     then:
       - lambda: |-
+          int MotionSensitivity[9] = { (int)MotionSensitivity0, (int)MotionSensitivity1, (int)MotionSensitivity2, (int)MotionSensitivity3, (int)MotionSensitivity4, (int)MotionSensitivity5, (int)MotionSensitivity6, (int)MotionSensitivity7, (int)MotionSensitivity8 };
+          int RestSensitivity[9] = { (int)RestSensitivity0, (int)RestSensitivity1, (int)RestSensitivity2, (int)RestSensitivity3, (int)RestSensitivity4, (int)RestSensitivity5, (int)RestSensitivity6, (int)RestSensitivity7, (int)RestSensitivity8 };
           auto uart_component = static_cast<LD2410 *>(ld2410);
-          uart_component->setNumbers(maxMovingDistanceRange, maxStillDistanceRange, noneDuration);
+          uart_component->setNumbers(maxMovingDistanceRange, maxStillDistanceRange, noneDuration, MotionSensitivity, RestSensitivity);
 
 esp8266:
   board: d1_mini
@@ -119,6 +121,222 @@ number:
       - lambda: |-
           auto uart_component = static_cast<LD2410 *>(ld2410);
           uart_component->setMaxDistancesAndNoneDuration(id(maxMovingDistanceRange).state,id(maxStillDistanceRange).state,x);
+  - platform: template
+    name: "Gate 0 Motion Sensitivity"
+    id: MotionSensitivity0
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(0,x,id(RestSensitivity0).state);
+  - platform: template
+    name: "Gate 0 Rest Sensitivity"
+    id: RestSensitivity0
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(0,id(MotionSensitivity0).state,x);
+  - platform: template
+    name: "Gate 1 Motion Sensitivity"
+    id: MotionSensitivity1
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(1,x,id(RestSensitivity1).state);
+  - platform: template
+    name: "Gate 1 Rest Sensitivity"
+    id: RestSensitivity1
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(1,id(MotionSensitivity1).state,x);
+  - platform: template
+    name: "Gate 2 Motion Sensitivity"
+    id: MotionSensitivity2
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(2,x,id(RestSensitivity2).state);
+  - platform: template
+    name: "Gate 2 Rest Sensitivity"
+    id: RestSensitivity2
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(2,id(MotionSensitivity2).state,x);
+  - platform: template
+    name: "Gate 3 Motion Sensitivity"
+    id: MotionSensitivity3
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(3,x,id(RestSensitivity3).state);
+  - platform: template
+    name: "Gate 3 Rest Sensitivity"
+    id: RestSensitivity3
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(3,id(MotionSensitivity3).state,x);
+  - platform: template
+    name: "Gate 4 Motion Sensitivity"
+    id: MotionSensitivity4
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(4,x,id(RestSensitivity4).state);
+  - platform: template
+    name: "Gate 4 Rest Sensitivity"
+    id: RestSensitivity4
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(4,id(MotionSensitivity4).state,x);
+  - platform: template
+    name: "Gate 5 Motion Sensitivity"
+    id: MotionSensitivity5
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(5,x,id(RestSensitivity5).state);
+  - platform: template
+    name: "Gate 5 Rest Sensitivity"
+    id: RestSensitivity5
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(5,id(MotionSensitivity5).state,x);
+  - platform: template
+    name: "Gate 6 Motion Sensitivity"
+    id: MotionSensitivity6
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(6,x,id(RestSensitivity6).state);
+  - platform: template
+    name: "Gate 6 Rest Sensitivity"
+    id: RestSensitivity6
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(6,id(MotionSensitivity6).state,x);
+  - platform: template
+    name: "Gate 7 Motion Sensitivity"
+    id: MotionSensitivity7
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(7,x,id(RestSensitivity7).state);
+  - platform: template
+    name: "Gate 7 Rest Sensitivity"
+    id: RestSensitivity7
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(7,id(MotionSensitivity7).state,x);
+  - platform: template
+    name: "Gate 8 Motion Sensitivity"
+    id: MotionSensitivity8
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(8,x,id(RestSensitivity8).state);
+  - platform: template
+    name: "Gate 8 Rest Sensitivity"
+    id: RestSensitivity8
+    min_value: 0
+    max_value: 100
+    step: 1
+    update_interval: never
+    optimistic: true
+    set_action:
+      - lambda: |-
+          auto uart_component = static_cast<LD2410 *>(ld2410);
+          uart_component->setSensitivity(8,id(MotionSensitivity8).state,x);
       
 
 button:

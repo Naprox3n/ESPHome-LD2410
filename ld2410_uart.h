@@ -19,16 +19,21 @@ public:
 
   Number *maxMovingDistanceRange;
   Number *maxStillDistanceRange;
-  int movingSensitivities[9] = {0};
-  int stillSensitivities[9] = {0};
   Number *noneDuration;
+  Number *MotionSensitivity[9];
+  Number *RestSensitivity[9];
 
   long lastPeriodicMillis = millis();
 
-  void setNumbers(Number *maxMovingDistanceRange_, Number *maxStillDistanceRange_, Number *noneDuration_){
+  void setNumbers(Number *maxMovingDistanceRange_, Number *maxStillDistanceRange_, Number *noneDuration_, int *MotionSensitivity_, int *RestSensitivity_){
     maxMovingDistanceRange = maxMovingDistanceRange_;
     maxStillDistanceRange = maxStillDistanceRange_;
     noneDuration = noneDuration_;
+    for(int i = 0; i < 9; i++)
+    {
+      MotionSensitivity[i] = (Number *)MotionSensitivity_[i];
+      RestSensitivity[i] = (Number *)RestSensitivity_[i];
+    }
   }
 
   void sendCommand(char *commandStr, char *commandValue, int commandValueLen)
@@ -163,11 +168,11 @@ public:
       */
       for (int i = 0; i < 9; i++)
       {
-        movingSensitivities[i] = buffer[14 + i];
+        MotionSensitivity[i]->publish_state(buffer[14 + i]);
       }
       for (int i = 0; i < 9; i++)
       {
-        stillSensitivities[i] = buffer[23 + i];
+        RestSensitivity[i]->publish_state(buffer[23 + i]);
       }
       /*
         None Duration: 33~34th bytes
@@ -254,6 +259,14 @@ public:
     queryParameters();
   }
 
+  void setSensitivity(int GateNum, int MotionSensitivity, int RestSensitivity)
+  {
+    char cmd[2] = {0x64, 0x00};
+    char value[18] = {0x00, 0x00, lowByte(GateNum), highByte(GateNum), 0x00, 0x00, 0x01, 0x00, lowByte(MotionSensitivity), highByte(MotionSensitivity), 0x00, 0x00, 0x02, 0x00, lowByte(RestSensitivity), highByte(RestSensitivity), 0x00, 0x00};
+    sendCommand(cmd, value, 18);
+    queryParameters();
+  }
+  
   void factoryReset()
   {
     char cmd[2] = {0xA2, 0x00};
