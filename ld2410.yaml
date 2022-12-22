@@ -150,4 +150,11 @@ button:
     name: "Set baud rate to 9600"
     on_press:
       - lambda: 'static_cast<LD2410 *>(ld2410)->setBaudrate(1);'
-
+  - platform: template
+    name: "Turn on Engineering mode"
+    on_press:
+      - lambda: 'static_cast<LD2410 *>(ld2410)->setEngineeringMode(true);'
+  - platform: template
+    name: "Turn off Engineering mode"
+    on_press:
+      - lambda: 'static_cast<LD2410 *>(ld2410)->setEngineeringMode(false);'
